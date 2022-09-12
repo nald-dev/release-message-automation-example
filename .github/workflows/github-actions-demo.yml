@@ -7,7 +7,7 @@ jobs:
   Explore-GitHub-Actions:
     runs-on: ubuntu-latest
     steps:
-      - name: Erin JIRA Release Message GitHub Actions
+      - name: Get JIRA Release Message
         id: erin-jira-release-message-github-actions-instance
         uses: erinapp/erin-jira-release-message-github-actions@main
         with:
@@ -18,14 +18,14 @@ jobs:
           jira_target_status: ${{ secrets.JIRA_TARGET_STATUS }}
           jira_target_label_field: ${{ secrets.JIRA_TARGET_LABEL_FIELD }}
           jira_target_label: ${{ secrets.JIRA_TARGET_LABEL }}
-      - name: slack-send
+      - name: Sending Slack Message
         uses: slackapi/slack-github-action@v1.21.0
         with:
           channel-id: ${{ secrets.SLACK_TARGET_CHANNEL_ID }}
           slack-message: ${{ steps.erin-jira-release-message-github-actions-instance.outputs.newReleaseMessage }}
         env:
           SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
-      - name: curl
+      - name: Transitioning JIRA Cards
         uses: wei/curl@master
         with:
           args: ${{ secrets.JIRA_WEBHOOK_URL_ARGS }}

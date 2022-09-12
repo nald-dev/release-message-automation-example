@@ -25,4 +25,5 @@ jobs:
       - name: curl
         uses: wei/curl@master
         with:
-          args: "-X POST -H 'Content-type: application/json' \ https://automation.atlassian.com/pro/hooks/ee9674e43fd175ada8b812a4d0c9138f8c00f425"
+          args: "-X POST -H 'Content-type: application/json' \
+            https://automation.atlassian.com/pro/hooks/ee9674e43fd175ada8b812a4d0c9138f8c00f425"

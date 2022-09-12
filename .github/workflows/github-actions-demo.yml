@@ -22,3 +22,7 @@ jobs:
           slack-message: ${{ steps.erin-jira-release-message-github-actions-instance.outputs.newReleaseMessage }}
         env:
           SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+      - name: curl
+        uses: wei/curl@master
+        with:
+          args: "-X POST -H 'Content-type: application/json' \ https://automation.atlassian.com/pro/hooks/ee9674e43fd175ada8b812a4d0c9138f8c00f425"

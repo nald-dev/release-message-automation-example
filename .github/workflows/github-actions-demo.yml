@@ -1,0 +1,24 @@
+name: Erin JIRA Release Message GitHub Actions Demo
+on: [push]
+jobs:
+  Explore-GitHub-Actions:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Erin JIRA Release Message GitHub Actions
+        id: erin-jira-release-message-github-actions-instance
+        uses: erinapp/erin-jira-release-message-github-actions@main
+        with:
+          jira_base_url: ${{ secrets.JIRA_BASE_URL }}
+          jira_username: ${{ secrets.JIRA_USERNAME }}
+          jira_token: ${{ secrets.JIRA_TOKEN }}
+          jira_project_name: ${{ secrets.JIRA_PROJECT_NAME }}
+          jira_target_status: ${{ secrets.JIRA_TARGET_STATUS }}
+          jira_target_label_field: ${{ secrets.JIRA_TARGET_LABEL_FIELD }}
+          jira_target_label: ${{ secrets.JIRA_TARGET_LABEL }}
+      - name: slack-send
+        uses: slackapi/slack-github-action@v1.21.0
+        with:
+          channel-id: ${{ secrets.SLACK_TARGET_CHANNEL_ID }}
+          slack-message: ${{ steps.erin-jira-release-message-github-actions-instance.outputs.newReleaseMessage }}
+        env:
+          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
